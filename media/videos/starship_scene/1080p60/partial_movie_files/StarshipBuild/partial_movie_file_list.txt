@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/362854241_186368834_269678674.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_1365489724_1187022296.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_1282823909_1710726866.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_1708945901_649371599.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_2831421625_2526103371.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_3969928446_1465215505.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_2098489745_1394164052.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/starship_scene/1080p60/partial_movie_files/StarshipBuild/3605039958_2232925073_1106539351.mp4'

@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/3977891868_2711831552_3096705074.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_2631170253_1084613728.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_4005369628_570458070.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_721712785_1419200997.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_4179631865_3839732592.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_2672090279_618683232.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_1117208240_1310423882.mp4'
-file 'file:C:/Users/saif/task-4/media/videos/opening_branding/1080p60/partial_movie_files/OpeningBranding/2852726489_1979663500_3747665273.mp4'
