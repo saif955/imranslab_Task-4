@@ -107,28 +107,36 @@ class StarshipLiftoff(Scene):
         # Rocket is already visible immediately
 
         # Countdown overlay before ignition
-        countdown = Text("3", font_size=96, color=COLOR_OUTLINE)
+        countdown = Text("5", font_size=96, color=COLOR_OUTLINE)
         countdown_bg = Rectangle(width=4.2, height=2.2).set_fill(COLOR_BG, opacity=0.5).set_stroke(width=0)
         countdown_group = VGroup(countdown_bg, countdown).move_to(ORIGIN + UP * 1.5)
         self.play(FadeIn(countdown_group), run_time=0.2)
-        self.wait(0.2)
-        self.play(Transform(countdown, Text("2", font_size=96, color=COLOR_OUTLINE)), run_time=0.25)
-        self.play(Transform(countdown, Text("1", font_size=96, color=COLOR_OUTLINE)), run_time=0.25)
-        self.play(Transform(countdown, Text("0", font_size=96, color=COLOR_OUTLINE)), run_time=0.25)
+        self.wait(0.3)
+        self.play(Transform(countdown, Text("4", font_size=96, color=COLOR_OUTLINE)), run_time=1)
+        self.wait(0.3)
+        self.play(Transform(countdown, Text("3", font_size=96, color=COLOR_OUTLINE)), run_time=1)
+        self.wait(0.3)
+        self.play(Transform(countdown, Text("2", font_size=96, color=COLOR_OUTLINE)), run_time=1)
+        self.wait(0.3)
+        self.play(Transform(countdown, Text("1", font_size=96, color=COLOR_OUTLINE)), run_time=1)
+        self.wait(0.3)
+        self.play(Transform(countdown, Text("0", font_size=96, color=COLOR_OUTLINE)), run_time=1)
         self.play(FadeOut(countdown_group), run_time=0.2)
 
         # Ignite engines
-        self.play(*[flame.animate.set_opacity(1) for flame in flames], run_time=0.25)
+        self.play(*[flame.animate.set_opacity(1) for flame in flames], run_time=0.4)
 
-        # Lift-off straight up until out of frame
+        # Lift-off straight up until out of frame (slower, more dramatic)
         self.play(
-            rocket.animate.shift(4.5 * UP),
-            flames.animate.shift(4.5 * UP),
+            rocket.animate.shift(5.5 * UP),
+            flames.animate.shift(5.5 * UP),
             rate_func=rate_functions.ease_in_sine,
-            run_time=1.8,
+            run_time=3.2,
         )
 
+        # Hold briefly before exit
+        self.wait(0.5)
         # Exit fade
-        self.play(FadeOut(VGroup(rocket, flames)), run_time=0.4)
+        self.play(FadeOut(VGroup(rocket, flames)), run_time=0.6)
 
 

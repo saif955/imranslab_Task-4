@@ -10,10 +10,9 @@ from moviepy import VideoFileClip, concatenate_videoclips
 
 # Scene files to render (in order)
 SCENES = [
-    ("intro.py", "LogoIntro"),
+    ("intro.py", "IntroScene"),
     ("starship_liftoff.py", "StarshipLiftoff"), 
     ("starship_scene.py", "StarshipBuild"),
-    ("outro.py", "LogoOutro"),
 ]
 
 # Output paths

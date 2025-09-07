@@ -46,22 +46,22 @@ class StarshipBuild(MovingCameraScene):
         stars_near = make_star_layer(70, COLOR_STAR_NEAR, (0.010, 0.024), seed=3)
         self.play(LaggedStart(FadeIn(stars_far, shift=0.1 * DOWN), FadeIn(stars_mid, shift=0.15 * DOWN), FadeIn(stars_near, shift=0.2 * DOWN), lag_ratio=0.2, run_time=0.8))
 
-        # Earth
-        earth_radius = 2.2
+        # Earth (smaller for 1080p)
+        earth_radius = 1.4
         earth = Circle(radius=earth_radius).set_fill(COLOR_EARTH_OCEAN, opacity=1).set_stroke(COLOR_EARTH_OUTLINE, 2)
-        earth.move_to(DOWN * 2.2 + LEFT * 3.2)
+        earth.move_to(DOWN * 1.8 + LEFT * 2.5)
         self.play(FadeIn(earth, shift=0.3 * DOWN), run_time=0.6)
 
         # Define orbit geometry (start directly in orbit)
-        orbit_radius = earth_radius + 1.5
+        orbit_radius = earth_radius + 1.0
         start_angle = -PI / 2 + 0.2
 
-        # Rocket proportions
-        body_height = 5.0
-        body_width = 1.2
-        nose_height = 1.2
-        fin_span = 2.6
-        fin_height = 1.0
+        # Rocket proportions (smaller for 1080p)
+        body_height = 3.2
+        body_width = 0.8
+        nose_height = 0.8
+        fin_span = 1.8
+        fin_height = 0.7
 
         # Body
         body = RoundedRectangle(
@@ -84,13 +84,13 @@ class StarshipBuild(MovingCameraScene):
             fill_opacity=1,
         )
 
-        # Window portholes
-        window1 = Circle(radius=0.12).set_fill(COLOR_ACCENT, opacity=1).set_stroke(COLOR_OUTLINE, 1)
-        window2 = Circle(radius=0.10).set_fill(COLOR_ACCENT, opacity=1).set_stroke(COLOR_OUTLINE, 1)
-        window3 = Circle(radius=0.10).set_fill(COLOR_ACCENT, opacity=1).set_stroke(COLOR_OUTLINE, 1)
-        window1.move_to(UP * 1.1)
-        window2.move_to(UP * 0.4)
-        window3.move_to(DOWN * 0.3)
+        # Window portholes (scaled down)
+        window1 = Circle(radius=0.08).set_fill(COLOR_ACCENT, opacity=1).set_stroke(COLOR_OUTLINE, 1)
+        window2 = Circle(radius=0.07).set_fill(COLOR_ACCENT, opacity=1).set_stroke(COLOR_OUTLINE, 1)
+        window3 = Circle(radius=0.07).set_fill(COLOR_ACCENT, opacity=1).set_stroke(COLOR_OUTLINE, 1)
+        window1.move_to(UP * 0.7)
+        window2.move_to(UP * 0.25)
+        window3.move_to(DOWN * 0.2)
 
         # Fins (left and right)
         left_fin = Polygon(
@@ -102,9 +102,9 @@ class StarshipBuild(MovingCameraScene):
         left_fin.set_fill(color=COLOR_METAL, opacity=1).set_stroke(COLOR_OUTLINE, 2)
         right_fin.set_fill(color=COLOR_METAL, opacity=1).set_stroke(COLOR_OUTLINE, 2)
 
-        # Engines (three bells)
-        bell_radius = 0.18
-        engine_offsets = [-0.35, 0.0, 0.35]
+        # Engines (three bells, scaled down)
+        bell_radius = 0.12
+        engine_offsets = [-0.25, 0.0, 0.25]
         bells = VGroup(
             *[
                 Circle(radius=bell_radius)
@@ -197,9 +197,14 @@ class StarshipBuild(MovingCameraScene):
         trace = TracedPath(lambda: rocket.get_center(), stroke_color=COLOR_ACCENT, stroke_width=2)
         self.add(trace)
 
+        # Set initial values and trigger updaters
         altitude.set_value(500.0)
         velocity.set_value(7.3)
         mission_t.set_value(480.0)
+        # Force initial update
+        update_alt(alt_num)
+        update_vel(vel_num)
+        update_time(tim_num)
 
         # Build orbit arc and draw it
         orbit_arc = Arc(
@@ -210,16 +215,58 @@ class StarshipBuild(MovingCameraScene):
         orbit_path_draw = orbit_arc.copy().set_stroke(COLOR_OUTLINE, 1, opacity=0.35)
         self.play(FadeIn(orbit_path_draw), run_time=0.3)
 
+        # First orbit with gradual HUD updates
+        def update_hud_first(alpha):
+            alt_val = 500.0 + alpha * 40.0
+            vel_val = 7.3 + alpha * 0.3
+            time_val = 480.0 + alpha * 60.0
+            altitude.set_value(alt_val)
+            velocity.set_value(vel_val)
+            mission_t.set_value(time_val)
+            # Force text updates
+            alt_num.set_text(f"{int(alt_val):,} km")
+            vel_num.set_text(f"{vel_val:.2f} km/s")
+            tim_num.set_text(f"{time_val:.1f} s")
+        
         self.play(
             AnimationGroup(
                 MoveAlongPath(rocket, orbit_arc),
                 stars_near.animate.shift(1.0 * LEFT),
                 stars_mid.animate.shift(0.6 * LEFT),
                 stars_far.animate.shift(0.3 * LEFT),
-                altitude.animate.set_value(540.0),
-                velocity.animate.set_value(7.6),
-                mission_t.animate.set_value(540.0),
+                UpdateFromAlphaFunc(altitude, lambda m, a: update_hud_first(a)),
                 run_time=4.0,
+            )
+        )
+
+        # Second orbit loop (longer, more parallax)
+        orbit_arc2 = Arc(
+            radius=orbit_radius,
+            start_angle=start_angle + PI * 1.3,
+            angle=PI * 1.8,
+        ).move_arc_center_to(earth.get_center())
+        
+        # Second orbit with gradual HUD updates
+        def update_hud_second(alpha):
+            alt_val = 540.0 + alpha * 40.0
+            vel_val = 7.6 + alpha * 0.2
+            time_val = 540.0 + alpha * 180.0
+            altitude.set_value(alt_val)
+            velocity.set_value(vel_val)
+            mission_t.set_value(time_val)
+            # Force text updates
+            alt_num.set_text(f"{int(alt_val):,} km")
+            vel_num.set_text(f"{vel_val:.2f} km/s")
+            tim_num.set_text(f"{time_val:.1f} s")
+        
+        self.play(
+            AnimationGroup(
+                MoveAlongPath(rocket, orbit_arc2),
+                stars_near.animate.shift(2.2 * LEFT + 0.4 * DOWN),
+                stars_mid.animate.shift(1.4 * LEFT + 0.2 * DOWN),
+                stars_far.animate.shift(0.8 * LEFT + 0.1 * DOWN),
+                UpdateFromAlphaFunc(altitude, lambda m, a: update_hud_second(a)),
+                run_time=5.5,
             )
         )
 
@@ -228,7 +275,7 @@ class StarshipBuild(MovingCameraScene):
         self.play(Transform(earth, earth_bigger), run_time=0.4)
 
         # Hold and fade
-        self.wait(0.4)
+        self.wait(0.8)
         self.play(
             LaggedStart(
                 FadeOut(rocket),
