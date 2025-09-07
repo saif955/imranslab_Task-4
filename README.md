@@ -17,12 +17,13 @@ A cinematic space exploration animation created with Manim, featuring a Starship
 
 ## 🎬 Overview
 
-This project creates a professional-quality space animation film using Python's Manim library. The film consists of four main scenes:
+This project creates a professional-quality space animation film using Python's Manim library. The film consists of five main scenes:
 
 1. **Logo Introduction** - Animated logo with tracing effects
 2. **Starship Liftoff** - Dramatic rocket launch with countdown
 3. **Orbital Scene** - Realistic orbital mechanics with live HUD
-4. **Logo Outro** - Closing branding sequence
+4. **Mars Landing** - Starship landing on Mars with retro-rockets
+5. **Logo Outro** - Closing branding sequence
 
 The animation features realistic physics, parallax scrolling effects, and a minimalist sci-fi aesthetic.
 
@@ -51,6 +52,9 @@ The animation features realistic physics, parallax scrolling effects, and a mini
 - **Smooth Transitions** - Professional scene transitions
 - **SVG Logo Support** - Vector logo with tracing animation
 - **Fallback Graphics** - Geometric shapes if assets missing
+- **Mars Landing** - Retro-rocket controlled descent
+- **Particle Effects** - Atmospheric dust and impact clouds
+- **Dynamic HUD** - Real-time landing metrics with color coding
 
 ## 📁 Project Structure
 
@@ -61,6 +65,7 @@ task-4/
 ├── intro.py                  # Logo introduction scene
 ├── starship_liftoff.py       # Rocket launch scene
 ├── starship_scene.py         # Orbital mechanics scene
+├── starship_mars_landing.py  # Mars landing scene
 ├── outro.py                  # Logo outro scene
 ├── assets/                   # Asset files
 │   └── logo.svg             # Company logo (optional)
@@ -124,6 +129,7 @@ This will:
 manim -pql intro.py LogoIntro
 manim -pql starship_liftoff.py StarshipLiftoff
 manim -pql starship_scene.py StarshipBuild
+manim -pql starship_mars_landing.py StarshipMarsLanding
 manim -pql outro.py LogoOutro
 ```
 
@@ -172,7 +178,19 @@ manim -pqk main.py
   - Earth with proper scaling
 - **Class**: `StarshipBuild`
 
-### 4. Logo Outro (`outro.py`)
+### 4. Mars Landing (`starship_mars_landing.py`)
+
+- **Duration**: ~14 seconds
+- **Features**:
+  - Martian surface with rocky terrain
+  - Atmospheric dust particles
+  - Retro-rocket landing sequence
+  - Landing HUD with altitude, velocity, fuel
+  - Impact effects and dust clouds
+  - Realistic Mars colors and environment
+- **Class**: `StarshipMarsLanding`
+
+### 5. Logo Outro (`outro.py`)
 
 - **Duration**: ~4 seconds
 - **Features**: Same logo animation as intro
@@ -189,19 +207,38 @@ COLOR_TEXT = "#00FFFF"         # Cyan text
 COLOR_OUTLINE = "#FFFFFF"      # White outlines
 COLOR_EARTH_OCEAN = "#1E3A8A"  # Earth blue
 COLOR_EARTH_OUTLINE = "#22C55E" # Earth green
+
+# Mars Landing Colors
+COLOR_MARS_SURFACE = "#CD5C5C" # Mars red surface
+COLOR_MARS_SKY = "#2F1B14"     # Dark red Martian sky
+COLOR_MARS_DUST = "#8B4513"    # Dust brown
+COLOR_STARSHIP = "#C0C0C0"     # Silver starship
+COLOR_FLAME = "#FF4500"        # Orange flame
+COLOR_HUD = "#00FF00"          # Green HUD
 ```
 
 ### HUD Metrics
 
+#### Earth Orbit Scene
+
 - **Altitude**: 500-540 km (realistic LEO)
 - **Velocity**: 7.3-7.6 km/s (orbital velocity)
 - **Mission Time**: 480-600 seconds (8-10 minutes)
+
+#### Mars Landing Scene
+
+- **Altitude**: 1200-0 m (descent from 1.2km)
+- **Velocity**: 45-0 m/s (controlled landing)
+- **Fuel**: 23-5% (fuel consumption during descent)
+- **Status**: DESCENT → LANDING → LANDED
 
 ### Animation Parameters
 
 - **Orbit Radius**: 2.4 units (scaled for 1080p)
 - **Star Count**: 280 total (120 far + 90 mid + 70 near)
 - **Animation Duration**: 4-5.5 seconds per orbit
+- **Mars Landing Duration**: 6 seconds controlled descent
+- **Dust Particles**: 50 atmospheric + 20 impact particles
 - **Frame Rate**: 60 FPS
 
 ### File Formats
@@ -295,10 +332,10 @@ manim -pql --verbose main.py
 
 ### Rendering Times (Approximate)
 
-- **Low Quality**: 2-3 minutes total
-- **Medium Quality**: 5-8 minutes total
-- **High Quality**: 15-25 minutes total
-- **4K Quality**: 45-60 minutes total
+- **Low Quality**: 3-4 minutes total
+- **Medium Quality**: 6-10 minutes total
+- **High Quality**: 18-30 minutes total
+- **4K Quality**: 50-75 minutes total
 
 ### System Requirements
 

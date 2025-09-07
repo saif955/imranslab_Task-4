@@ -13,6 +13,7 @@ SCENES = [
     ("intro.py", "LogoIntro"),
     ("starship_liftoff.py", "StarshipLiftoff"), 
     ("starship_scene.py", "StarshipBuild"),
+    ("starship_mars_landing.py", "StarshipMarsLanding"),
     ("outro.py", "LogoOutro"),
 ]
 
